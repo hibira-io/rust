@@ -86,7 +86,7 @@ impl Config {
             c.host = h;
         }
         c.port = var("HIBIRA_PORT").and_then(|p| p.parse().ok());
-        c.use_tls = var("HIBIRA_USE_TLS").map_or(true, |v| v != "false");
+        c.use_tls = var("HIBIRA_USE_TLS").is_none_or(|v| v != "false");
         c.livechat_identity_secret = var("HIBIRA_LIVECHAT_IDENTITY_SECRET");
         Ok(c)
     }
